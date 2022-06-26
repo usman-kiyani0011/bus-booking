@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addBusBooking } from "../store/busSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateBooking } from "../store/busSlice";
 
-const RegForm = () => {
+const EditBooking = () => {
+  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [seats, setSeats] = useState();
-  const [date, setDate] = useState();
+  const bookings = useSelector((state) => state.buses.bookings);
+  const existingBookings = bookings.filter((bus) => bus.id === params.id);
+  const { name, seats, date } = existingBookings[0];
+
+  const [newName, setNewName] = useState(name);
+  const [newSeats, setNewSeats] = useState(seats);
+  const [newDate, setNewDate] = useState(date);
 
   const onSubmit = (data) => {
     data.preventDefault();
-    dispatch(addBusBooking(name, seats, date));
-    setName("");
-    setSeats();
-    setDate();
+    let body = {
+      id: params.id,
+      name: newName,
+      seats: newSeats,
+      date: newDate,
+    };
+
+    dispatch(updateBooking(body));
+    setNewName("");
+    setNewSeats();
+    setNewDate();
     navigate("/");
   };
 
@@ -29,8 +41,9 @@ const RegForm = () => {
             type="text"
             placeholder="Enter bus name"
             name="name"
+            value={newName}
             onChange={(e) => {
-              setName(e.target.value);
+              setNewName(e.target.value);
             }}
           />
         </Form.Group>
@@ -41,8 +54,9 @@ const RegForm = () => {
             type="number"
             placeholder="Seats"
             name="seats"
+            value={newSeats}
             onChange={(e) => {
-              setSeats(e.target.value);
+              setNewSeats(e.target.value);
             }}
           />
         </Form.Group>
@@ -53,8 +67,9 @@ const RegForm = () => {
             type="date"
             placeholder="Enter booking date"
             name="date"
+            value={newDate}
             onChange={(e) => {
-              setDate(e.target.value);
+              setNewDate(e.target.value);
             }}
           />
         </Form.Group>
@@ -66,4 +81,4 @@ const RegForm = () => {
   );
 };
 
-export default RegForm;
+export default EditBooking;

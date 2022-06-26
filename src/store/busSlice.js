@@ -1,28 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+// const initialState1 = [{}];
 const initialState = {
-  buses: {},
+  bookings: [],
 };
 
 export const busSlice = createSlice({
   name: "buses",
   initialState,
   reducers: {
-    addBusBooking: (state, action) => {
-      console.log("payloadd", action.payload);
-      //   state.buses.value.push(action.payload);
+    addBusBooking: {
+      reducer(state, action) {
+        state.bookings.push(action.payload);
+      },
+      prepare(name, seats, date) {
+        return {
+          payload: {
+            id: nanoid(),
+            name,
+            seats,
+            date,
+          },
+        };
+      },
     },
-
     deleteBusBooking: (state, action) => {
-      state.value = state.buses.value.filter(
+      state.bookings = state.bookings.filter(
         (bus) => bus.id !== action.payload.id
       );
     },
 
     updateBooking: (state, action) => {
-      state.value.map((bus) => {
+      state.bookings.map((bus) => {
         if (bus.id === action.payload.id) {
           bus.name = action.payload.name;
+          bus.seats = action.payload.seats;
+          bus.date = action.payload.date;
         }
       });
     },
