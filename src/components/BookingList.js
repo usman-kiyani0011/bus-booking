@@ -13,14 +13,19 @@ const BookingList = () => {
   };
 
   const bookingList = bookings.map((booking) => (
-    <div
-      className="bg-gray-300 flex items-center justify-between"
-      key={booking.id}
-    >
-      <div>
-        <h3 className="font-bold text-lg text-gray-700">{booking.name}</h3>
-        <span className="font-normal text-gray-600">{booking.seats}</span>
-        <p className="font-normal text-gray-600">{booking.date}</p>
+    <div className="bg-gray-300 flex items-center justify-between">
+      <div key={booking.id}>
+        <h3 className="font-bold text-lg text-gray-700">
+          Booking Name: {booking.name}
+        </h3>
+        <span className="font-normal text-gray-600">
+          Seats: {booking.seats}
+        </span>
+        <p className="font-normal text-gray-600">Date: {booking.date}</p>
+        Alloacated Buses:
+        {booking.combi1.map((com) => (
+          <span className="font-normal pe-2"> {com} </span>
+        ))}
       </div>
       <div>
         <Link to={`edit-booking/${booking.id}`}>
@@ -44,7 +49,7 @@ const BookingList = () => {
         </Button>
       </Link>
 
-      <h1 className="mt-2">Booking List</h1>
+      <h1 className="mt-5 mb-5">Booking List</h1>
       <div className="grid gap-5 md:grid-cols-2">
         {bookings.length ? (
           bookingList

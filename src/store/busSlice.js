@@ -24,13 +24,15 @@ export const busSlice = createSlice({
         console.log("payload", action.payload);
         state.bookings.push(action.payload);
       },
-      prepare(name, seats, date) {
+      prepare(name, seats, date, combi1) {
+        console.log("dsdsdsd", combi1);
         return {
           payload: {
             id: nanoid(),
             name,
             seats,
             date,
+            combi1
           },
         };
       },
