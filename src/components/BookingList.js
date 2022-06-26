@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { deleteBusBooking } from "../store/busSlice";
+import BusesDetails from "./BusesDetails";
 
 const BookingList = () => {
   const dispatch = useDispatch();
   const bookings = useSelector((store) => store.buses.bookings);
-
   const deleteHandler = (id) => {
     dispatch(deleteBusBooking({ id }));
   };
@@ -50,7 +50,7 @@ const BookingList = () => {
           bookingList
         ) : (
           <p className="text-center col-span-2 text-gray-700 font-semibold">
-            No User
+            No Booking
           </p>
         )}
       </div>

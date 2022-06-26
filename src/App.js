@@ -5,6 +5,7 @@ import RegForm from "./components/RegForm";
 import EditBooking from "./components/EditBooking";
 
 function App() {
+  
   return (
     <div className="container">
       <Routes>
