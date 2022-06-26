@@ -135,10 +135,10 @@ const RegForm = () => {
         </Form.Group>
 
         <Form.Group className="col-md-3">
-          <Form.Label>Seats</Form.Label>
+          <Form.Label>Seats Max 25 </Form.Label>
           <Form.Control
             type="number"
-            placeholder="Seats"
+            placeholder="Seats Max 25"
             name="seats"
             onChange={(e) => {
               setSeats(e.target.value);
